@@ -11,7 +11,7 @@ class Order {
 		this.zipCode = items[6];
 		this.creditCard = items[7];
 	}
-	
+
 	setEmail(email) {
 		this.email = email;
 		return this;
@@ -24,6 +24,21 @@ class Order {
 
 	setState(state) {
 		this.state = state;
+		return this;
+	}
+
+	setOrderId(orderId) {
+		this.orderId = orderId;
+		return this;
+	}
+
+	setDealId(dealId) {
+		this.dealId = dealId;
+		return this;
+	}
+
+	setCity(city) {
+		this.city = city;
 		return this;
 	}
 }

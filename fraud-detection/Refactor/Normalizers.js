@@ -2,14 +2,15 @@ class Normalizers {
     constructor() {
         this.list = [
             normalizeValues,
-            normalizeEmail,
+            normalizeEmailDot,
+            normalizeEmailPlus,
             normalizeStreet,
             normalizeState
         ];
     }
 
     normalize(order) {
-         this.list.forEach(norm => {
+        this.list.forEach(norm => {
             order = norm(order);
         });
         return order;
@@ -17,14 +18,15 @@ class Normalizers {
 }
 
 function normalizeValues(order) {
-    order.orderId = Number(order.orderId);
-    order.dealId = Number(order.dealId);
-    order.city = order.city.toLowerCase();
-    return order;
+    return order.setOrderId(Number(order.orderId)).setDealId(Number(order.dealId)).setCity(order.city.toLowerCase());
 }
 
-function normalizeEmail(order) {
+function normalizeEmailPlus(order) {
 	return order.setEmail(order.email.replace(order.email.slice(order.email.indexOf('+') - 1, order.email.indexOf('@')), ''));
+}
+
+function normalizeEmailDot(order) {
+	return order.setEmail(order.email.replace('.', ''));
 }
 
 function normalizeStreet(order) {

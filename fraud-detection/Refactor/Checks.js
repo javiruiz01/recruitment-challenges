@@ -7,7 +7,7 @@ class Checks {
         ];
     }
 
-    checkForFraud(current, order) {
+    isFraud(current, order) {
         return this.list.some(check => { return check(current, order); });
     }
 }

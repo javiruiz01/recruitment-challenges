@@ -20,7 +20,7 @@ function getLinesFromFile(filePath) {
 	} catch (err) {
 		throw err;
 	}
-	return fileContent.split('\n');	
+	return fileContent.split('\n');
 }
 
 function createOrdersFromLines(lines) {
@@ -28,20 +28,17 @@ function createOrdersFromLines(lines) {
 }
 
 function getFraudulentOrders(orders) {
-	const result = [];
-	for (let i = 0; i < orders.length; i++) {
-		const current = orders[i];
-
-		for (let j = i + 1; j < orders.length; j++) {
-			if (CHECKS.checkForFraud(current, orders[j])) {
-				result.push({
+	return orders.reduce((acc, order) => {
+		for (let i = orders.indexOf(order) + 1; i < orders.length; i++) {
+			if (CHECKS.isFraud(order, orders[i])) {
+				acc = [...acc, {
 					isFraudulent: true,
-					orderId: orders[j].orderId
-				})
+					orderId: orders[i].orderId
+				}];
 			}
 		}
-	}
-	return result;
+		return acc;
+	}, []);
 }
 
 module.exports = { Check }
