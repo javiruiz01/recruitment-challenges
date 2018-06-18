@@ -1,7 +1,6 @@
 class Checks {
     constructor() {
         this.list = [
-            checkBase,
             checkEmail,
             checkDirection
         ];
@@ -17,11 +16,11 @@ function checkBase(current, order) {
 }
 
 function checkEmail(current, order) {
-    return current.email === order.email;
+    return checkBase(current, order) && current.email === order.email;
 }
 
 function checkDirection(current, order) {
-    return current.state === order.state && current.zipCode === order.zipCode && current.street === order.street && current.city === order.city;
+    return checkBase(current, order) && current.state === order.state && current.zipCode === order.zipCode && current.street === order.street && current.city === order.city;
 }
 
 module.exports = { Checks };
